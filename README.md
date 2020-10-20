@@ -18,3 +18,4 @@ Small api created for the .NET Bootcamp at Digital Innovation One.
 |    POST   |   _/contact/_   | Contact to be inserted |       _none_      |    _none_    |
 |    GET    |   _/contact/_   |         _none_         |       _none_      | All contacts |
 |    PUT    | _/contact/{id}_ |     Updated contact    | Id of the contact |    _none_    |
+|   DELETE  | _/contact/{id}_ |         _none_         | Id of the contact |    _none_    |
