@@ -18,7 +18,7 @@ namespace contactsapi.Data {
                 MapClasses();
                 
             } catch(Exception ex) {
-                throw new MongoException("MONGODB::CONNECTION", ex);
+                throw new MongoException("MONGODB::CONSTRUCTOR", ex);
             }
         }
 
