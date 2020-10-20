@@ -7,7 +7,7 @@ using contactsapi.Models;
 namespace contactsapi.Controllers
 {
     [ApiController]
-    [Route("[contact]")]
+    [Route("[controller]")]
     public class ContactController : ControllerBase
     {
         Data.MongoDB mongoDB;
@@ -22,13 +22,26 @@ namespace contactsapi.Controllers
         public ActionResult SaveContact([FromBody] ContactDto dto) {
             var contact = new Contact(dto.FirstName, dto.LastName, dto.Phone, dto.Email);
             contactCollection.InsertOne(contact);
-            return StatusCode(201, "Contact successfully added.");
+            return StatusCode(201);
         }     
 
         [HttpGet]
-        public ActionResult GetContactS() {
+        public ActionResult GetContacts() {
             var contacts = contactCollection.Find(Builders<Contact>.Filter.Empty).ToList();
             return Ok(contacts);
-        }       
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateContact([FromRoute] string id, [FromBody] ContactDto dto) {
+            var contact = new Contact(id, dto.FirstName, dto.LastName, dto.Phone, dto.Email);
+            var replaceResult = contactCollection.ReplaceOne(c => c.Id == id, contact);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteContact([FromRoute] string id) {
+            contactCollection.DeleteOne(c => c.Id == id);
+            return StatusCode(204);
+        }
     }
 }
